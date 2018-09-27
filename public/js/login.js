@@ -11,6 +11,7 @@ la.login = function (e) {
 	var data = {}
 	data.email = Util.getEl('#email')[0].value;
 	data.password = Util.getEl('#password')[0].value;
+	// console.log(data);
 	if (data.email == "" || data.password == "") {
 		Util.msgBox({
 			heading: {

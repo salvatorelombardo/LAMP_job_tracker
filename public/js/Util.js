@@ -3,26 +3,26 @@
 var Util = {}
 
 /* TO CHECK IF SOMETHING WAS RETURNED YOU WILL CHECK FOR AN EMPTY ARRAY. IE if(Util.getEl('#someid').length != 0)*/
-Util.getEl = function(input) {
+Util.getEl = function (input) {
     return document.querySelectorAll(input)
 }
 
 if (window.addEventListener) {
 
-    Util.addLis = function(ele, event, func) {
-        if(ele){
+    Util.addLis = function (ele, event, func) {
+        if (ele) {
             ele.addEventListener(event, func, false);
         }
     };
 
-    Util.stProp = function(event) {
+    Util.stProp = function (event) {
         event.stopPropagation();
     };
-    Util.prDef = function(event) {
+    Util.prDef = function (event) {
         event.preventDefault();
     };
-    Util.remLis = function(ele, event, func) {
-        if(ele){
+    Util.remLis = function (ele, event, func) {
+        if (ele) {
             ele.removeEventListener(event, func, false);
         }
     };
@@ -30,29 +30,29 @@ if (window.addEventListener) {
 }
 
 if (window.attachEvent) {
-    Util.addLis = function(ele, event, func) {
-        if(ele){
+    Util.addLis = function (ele, event, func) {
+        if (ele) {
             ele.attachEvent("on" + type, listener2);
         }
     };
 
-    Util.stProp = function(event) {
+    Util.stProp = function (event) {
         event.cancelBubble = true;
     };
 
-    Util.prDef = function(event) {
+    Util.prDef = function (event) {
         event.returnValue = false;
     };
 
-    Util.remLis = function(ele, event, func) {
-        if(ele){
+    Util.remLis = function (ele, event, func) {
+        if (ele) {
             ele.detachEvent(event, func);
         }
     };
 
 }
 
-Util.sendRequest = function(url, callback, postData, file) {
+Util.sendRequest = function (url, callback, postData, file) {
 
     /*SET FILE TO FALSE IF IT IS NOT ALREADY SET.  IF IT IS SET THEN
     IT IS SUPPOSED TO BE TRUE.  IF IT IS SET TO TRUE THAT INDICATES THAT A FILE IS
@@ -80,7 +80,7 @@ Util.sendRequest = function(url, callback, postData, file) {
         req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     }
     /*IF EVERYTHING RETURNS OK SEND REQ VALUE TO "CALLBACK"*/
-    req.onreadystatechange = function() {
+    req.onreadystatechange = function () {
         if (req.readyState !== 4) return;
         if (req.status !== 200 && req.status !== 304) {
             return;
@@ -112,23 +112,23 @@ Util.sendRequest = function(url, callback, postData, file) {
 
 /*DEPENDING ON THE BROWSER RETURN APPROPRIATE REQUEST.*/
 Util.XMLHttpFactories = [
-    function() {
+    function () {
         return new XMLHttpRequest();
     },
-    function() {
+    function () {
         return new ActiveXObject("Msxml2.XMLHTTP");
     },
-    function() {
+    function () {
         return new ActiveXObject("Msxml3.XMLHTTP");
     },
-    function() {
+    function () {
         return new ActiveXObject("Microsoft.XMLHTTP");
     }
 ];
 
 /*THIS METHOD CYCLES THROUGH ALL REQUESTS IN XMLHTTPFACTORIES UNTIL
 ONE IS FOUND.*/
-Util.createXMLHttpObject = function() {
+Util.createXMLHttpObject = function () {
     var xmlhttp = false;
     for (var i = 0; i < Util.XMLHttpFactories.length; i++) {
         try {
@@ -161,7 +161,7 @@ CSS THAT IS NEEDED
 #msgbox .box .body #leftbtn{margin: 0 5px 0 0;}
 */
 
-Util.msgBox = function(obj){
+Util.msgBox = function (obj) {
     var msgBox = '<div class="box"><div class="heading">Heading</div><div class="body">Body text';
     this.getEl('#msgbox')[0].style.display = 'block';
     this.getEl('#msgbox')[0].innerHTML = msgBox;
@@ -169,54 +169,76 @@ Util.msgBox = function(obj){
 }
 
 
-Util.msgBoxStyle = function(obj){
+Util.msgBoxStyle = function (obj) {
     this.getEl('.heading')[0].innerHTML = obj.heading.text;
     this.getEl('.body')[0].innerHTML = obj.body.text + '<div class="btns"><input type="button" id="rightbtn" value="Right Button"><input type="button" id="leftbtn" value="Left Button"></div></div></div>';
 
 
-    if(obj.heading.color){this.getEl('.heading')[0].style.color = obj.heading.color;}
-    if(obj.heading.background){this.getEl('.heading')[0].style.background = obj.heading.background;}
-
-    if(obj.hasOwnProperty('leftbtn')){
-        if(obj.leftbtn.text){this.getEl('#leftbtn')[0].value = obj.leftbtn.text;}
-        if(obj.leftbtn.background){this.getEl('#leftbtn')[0].style.background = obj.leftbtn.background;}
-        if(obj.leftbtn.color){this.getEl('#leftbtn')[0].style.color = obj.leftbtn.color;}
-        if(obj.leftbtn.display){this.getEl('#leftbtn')[0].style.display = obj.leftbtn.display;}
+    if (obj.heading.background) {
+        this.getEl('.heading')[0].style.color = obj.heading.color;
+    }
+    if (obj.heading.background) {
+        this.getEl('.heading')[0].style.background = obj.heading.background;
     }
 
-    if(obj.hasOwnProperty('rightbtn')){
-        if(obj.rightbtn.background){this.getEl('#rightbtn')[0].value = obj.rightbtn.text;}
-        if(obj.rightbtn.background){this.getEl('#rightbtn')[0].style.background = obj.rightbtn.background;}
-        if(obj.rightbtn.color){this.getEl('#rightbtn')[0].style.color = obj.rightbtn.color;}
-        if(obj.rightbtn.display){this.getEl('#rightbtn')[0].style.display = obj.rightbtn.display;}
+    if (obj.hasOwnProperty('leftbtn')) {
+        if (obj.leftbtn.text) {
+            this.getEl('#leftbtn')[0].value = obj.leftbtn.text;
+        }
+        if (obj.leftbtn.background) {
+            this.getEl('#leftbtn')[0].style.background = obj.leftbtn.background;
+        }
+        if (obj.leftbtn.color) {
+            this.getEl('#leftbtn')[0].style.color = obj.leftbtn.color;
+        }
+        if (obj.leftbtn.display) {
+            this.getEl('#leftbtn')[0].style.display = obj.leftbtn.display;
+        }
+    }
+
+    if (obj.hasOwnProperty('rightbtn')) {
+        if (obj.rightbtn.background) {
+            this.getEl('#rightbtn')[0].value = obj.rightbtn.text;
+        }
+        if (obj.rightbtn.background) {
+            this.getEl('#rightbtn')[0].style.background = obj.rightbtn.background;
+        }
+        if (obj.rightbtn.color) {
+            this.getEl('#rightbtn')[0].style.color = obj.rightbtn.color;
+        }
+        if (obj.rightbtn.display) {
+            this.getEl('#rightbtn')[0].style.display = obj.rightbtn.display;
+        }
     }
 }
 
-Util.closeMsgBox = function(){
+Util.closeMsgBox = function () {
     this.getEl('#msgbox')[0].style.display = 'none';
 }
 
-Util.formValidation = function(formId, obj){
-    var i = 0, j = 0, label;
+Util.formValidation = function (formId, obj) {
+    var i = 0,
+        j = 0,
+        label;
 
     label = Util.getEl('#' + formId)[0].Util.getEl('label');
     i = 0;
-    while(i < ele.length){
-        if(ele[i].lastChild.nodeName.toLowerCase() === "span"){
+    while (i < ele.length) {
+        if (ele[i].lastChild.nodeName.toLowerCase() === "span") {
             ele[i].removeChild(ele[i].lastChild);
         }
         i++;
     }
     i = 0;
-    while(i < label.length){
+    while (i < label.length) {
         j = 0;
-        while(j < obj.length){
-            if(label[i].getAttribute('for') === obj[i].for && obj[i].status === 'error'){
-                label[i].innerHTML += '<span> ' +  obj[i].msg + '</span>';
+        while (j < obj.length) {
+            if (label[i].getAttribute('for') === obj[i].for && obj[i].status === 'error') {
+                label[i].innerHTML += '<span> ' + obj[i].msg + '</span>';
                 break;
             }
             j++;
         }
-        i++;  
+        i++;
     }
 }
